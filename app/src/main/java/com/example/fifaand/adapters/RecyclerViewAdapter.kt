@@ -1,25 +1,41 @@
 package com.example.fifaand.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fifaand.Models.Footballer
 import com.example.fifaand.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.single_player_list.view.*
 
-class RecyclerViewAdapter(private val players: ArrayList<Footballer>) :
+class RecyclerViewAdapter(
+    private val players: ArrayList<Footballer>,
+    private val listOnClickListener: ListOnClickListener
+) :
     RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>() {
 
-    class MyViewHolder(container: View) : RecyclerView.ViewHolder(container){
+    interface ListOnClickListener {
+        fun onClickNav(position: Int)
+    }
+
+    inner class MyViewHolder(container: View) : RecyclerView.ViewHolder(container) {
+
         val playerID: TextView = container.IDNumber
         val playerName: TextView = container.Name
         val playerAge: TextView = container.Age
         val playerNationality: TextView = container.Nationality
         val playerPhoto: ImageView = container.photo
+
+        init {
+            container.setOnClickListener {
+                listOnClickListener.onClickNav(adapterPosition)
+            }
+        }
     }
 
 
@@ -33,7 +49,8 @@ class RecyclerViewAdapter(private val players: ArrayList<Footballer>) :
         holder.playerAge.text = player.age.toString()
         holder.playerName.text = player.name
         holder.playerNationality.text = player.nationality
-        Picasso.get().load(player.photo).resize(100,100).into(holder.playerPhoto)
+        Picasso.get().load(player.photo).resize(100, 100).into(holder.playerPhoto)
+
 
     }
 

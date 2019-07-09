@@ -17,5 +17,10 @@
                 app:destination="@id/players_List_Fragment"/>
     </fragment>
     <fragment android:id="@+id/players_List_Fragment" android:name="com.example.fifaand.PlayersListFragment"
-              android:label="fragment_players__list_" tools:layout="@layout/fragment_players__list_"/>
+              android:label="fragment_players__list_" tools:layout="@layout/fragment_players__list_">
+        <action android:id="@+id/action_players_List_Fragment_to_singleCardFragment"
+                app:destination="@id/singleCardFragment"/>
+    </fragment>
+    <fragment android:id="@+id/singleCardFragment" android:name="com.example.fifaand.SingleCardFragment"
+              android:label="fragment_single_card" tools:layout="@layout/fragment_single_card"/>
 </navigation>
