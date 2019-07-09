@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.fragment_list.view.*
 class ListFragment : Fragment(), View.OnClickListener {
     private lateinit var dialog: AlertDialog
     private val fileRequestCode = 2137
+    var bundel = Bundle()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,7 +39,7 @@ class ListFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.playerListBtn -> Toast.makeText(context, "path", Toast.LENGTH_SHORT).show()
+            R.id.playerListBtn -> Toast.makeText(context, "no a jak", Toast.LENGTH_SHORT).show()
             R.id.loadPlayersBtn -> pickFile()
             R.id.exitBtn -> dialog.show()
         }
@@ -46,6 +47,7 @@ class ListFragment : Fragment(), View.OnClickListener {
 
     private fun pickFile() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.addCategory(Intent.CATEGORY_OPENABLE)
         intent.type = "file/*"
         startActivityForResult(intent, fileRequestCode)
     }
@@ -53,12 +55,17 @@ class ListFragment : Fragment(), View.OnClickListener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val csv = CSVFileReader()
-        val path = Environment.getExternalStorageDirectory().path + data!!.data!!.path!!.replace("external_files/", "")
+        //val path = Environment.getExternalStorageDirectory().path + data!!.data!!.path!!.replace("external_files/", "")
+        var list: ArrayList<String>
 
         when (requestCode) {
             fileRequestCode -> {
-                Log.d("path: ", path)
-                val list = csv.readFileByLine(path)
+                // Log.d("path: ", path)
+                data.let { intent ->
+                    list = csv.readFileByLine(context!!.contentResolver, intent!!.data!!)
+                }
+                Log.d("First: ", list[0])
+                //bundel.putStringArrayList("playersList", list)
             }
             else -> Toast.makeText(context, "Stahp", Toast.LENGTH_SHORT).show()
 
