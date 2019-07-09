@@ -11,13 +11,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.navigation.Navigation
 import com.example.fifaand.helper.CSVFileReader
 import kotlinx.android.synthetic.main.fragment_list.view.*
 
 class ListFragment : Fragment(), View.OnClickListener {
     private lateinit var dialog: AlertDialog
     private val fileRequestCode = 2137
-    var bundel = Bundle()
+    var bundle = Bundle()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +40,7 @@ class ListFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.playerListBtn -> Toast.makeText(context, "no a jak", Toast.LENGTH_SHORT).show()
+            R.id.playerListBtn -> Navigation.findNavController(view).navigate(R.id.action_listFragment_to_players_List_Fragment,bundle)
             R.id.loadPlayersBtn -> pickFile()
             R.id.exitBtn -> dialog.show()
         }
@@ -65,7 +66,7 @@ class ListFragment : Fragment(), View.OnClickListener {
                     list = csv.readFileByLine(context!!.contentResolver, intent!!.data!!)
                 }
                 Log.d("First: ", list[0])
-                //bundel.putStringArrayList("playersList", list)
+                bundle.putStringArrayList("playersList", list)
             }
             else -> Toast.makeText(context, "Stahp", Toast.LENGTH_SHORT).show()
 

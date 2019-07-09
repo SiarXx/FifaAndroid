@@ -12,5 +12,10 @@
     <fragment android:id="@+id/registerFragment" android:name="com.example.fifaand.RegisterFragment"
               android:label="fragment_register" tools:layout="@layout/fragment_register"/>
     <fragment android:id="@+id/listFragment" android:name="com.example.fifaand.ListFragment"
-              android:label="fragment_list" tools:layout="@layout/fragment_list"/>
+              android:label="fragment_list" tools:layout="@layout/fragment_list">
+        <action android:id="@+id/action_listFragment_to_players_List_Fragment"
+                app:destination="@id/players_List_Fragment"/>
+    </fragment>
+    <fragment android:id="@+id/players_List_Fragment" android:name="com.example.fifaand.PlayersListFragment"
+              android:label="fragment_players__list_" tools:layout="@layout/fragment_players__list_"/>
 </navigation>
