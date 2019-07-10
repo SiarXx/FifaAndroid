@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                                    xmlns:app="http://schemas.android.com/apk/res-auto"
                                                    android:layout_height="wrap_content"
-                                                   android:layout_width="match_parent">
+                                                   android:layout_width="match_parent"
+                                                   android:background="?android:attr/selectableItemBackground">
 
     <ImageView android:layout_width="100dp"
                android:layout_height="100dp"
@@ -50,7 +51,8 @@
               app:layout_constraintStart_toEndOf="@+id/photo"
               android:layout_marginLeft="8dp"
               android:layout_marginTop="6dp"
-              android:layout_marginStart="8dp"/>
+              android:layout_marginStart="8dp"
+              android:id="@+id/textView7"/>
 
     <TextView android:layout_width="wrap_content"
               android:layout_height="wrap_content"

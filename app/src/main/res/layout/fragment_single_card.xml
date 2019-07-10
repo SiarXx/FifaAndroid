@@ -7,7 +7,8 @@
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent"
                                                    tools:context=".SingleCardFragment"
-                                                   android:id="@+id/CardBorder">
+                                                   android:id="@+id/CardBorder"
+                                                   android:background="@drawable/card_fragment_background">
     <ImageView
             android:src="@drawable/card_background"
             android:layout_width="400dp"
