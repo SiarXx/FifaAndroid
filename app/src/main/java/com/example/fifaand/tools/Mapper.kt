@@ -1,5 +1,6 @@
 package com.example.fifaand.tools
 
+import android.util.Log
 import com.example.fifaand.Models.Footballer
 import com.example.fifaand.helper.Formatter
 
@@ -40,6 +41,7 @@ class Mapper(private val formatter: Formatter) {
                 )
                 )
     } catch (e: Exception) {
+        Log.d("Player","Line does not match the format")
         return Footballer()
     }
 

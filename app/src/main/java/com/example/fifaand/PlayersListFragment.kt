@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.fifaand.Models.Footballer
 import com.example.fifaand.adapters.RecyclerViewAdapter
 import com.example.fifaand.helper.Formatter
 import com.example.fifaand.tools.Mapper
@@ -18,7 +19,8 @@ import kotlinx.android.synthetic.main.fragment_players__list_.view.*
 
 class PlayersListFragment : Fragment(), RecyclerViewAdapter.ListOnClickListener {
 
-
+    private val bundle = Bundle()
+    private var  playerList= ArrayList<Footballer>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,21 +28,22 @@ class PlayersListFragment : Fragment(), RecyclerViewAdapter.ListOnClickListener 
     ): View? {
         val view = inflater.inflate(R.layout.fragment_players__list_, container, false)
         val mapper = Mapper(Formatter())
-        val linelist = arguments!!.getStringArrayList("playersList")
-        if (linelist == null) {
+        val linelist = arguments!!.getStringArrayList("playersList")!!
+        if (linelist.isNullOrEmpty()) {
             Toast.makeText(context, "Load CSV file first", Toast.LENGTH_SHORT).show()
             return view
         }
 
-        val playerslist = ArrayList(linelist!!.map { mapper.map(it) })
+        playerList = ArrayList(linelist.map { mapper.map(it) })
         val playersRecyclerView = view.playersRecyclerView
-        playersRecyclerView.adapter = RecyclerViewAdapter(playerslist, this)
+        playersRecyclerView.adapter = RecyclerViewAdapter(playerList, this)
         playersRecyclerView.layoutManager = LinearLayoutManager(context)
         return view
     }
     override fun onClickNav(position: Int) {
         Log.d("Position", position.toString())
-        Navigation.findNavController(view!!).navigate(R.id.action_players_List_Fragment_to_singleCardFragment)
+        bundle.putSerializable("Player", playerList[position])
+        Navigation.findNavController(view!!).navigate(R.id.action_players_List_Fragment_to_singleCardFragment,bundle)
     }
 
 
