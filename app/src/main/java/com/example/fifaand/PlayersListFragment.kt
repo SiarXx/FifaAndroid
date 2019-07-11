@@ -21,6 +21,8 @@ class PlayersListFragment : Fragment(), RecyclerViewAdapter.ListOnClickListener 
 
     private val bundle = Bundle()
     private var  playerList= ArrayList<Player>()
+    val dB = (activity as MainActivity).mDb
+    val worker = (activity as MainActivity).dbWorker
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +47,7 @@ class PlayersListFragment : Fragment(), RecyclerViewAdapter.ListOnClickListener 
         bundle.putSerializable("Player", playerList[position])
         Navigation.findNavController(view!!).navigate(R.id.action_players_List_Fragment_to_singleCardFragment,bundle)
     }
+    
 
 
 }
