@@ -1,8 +1,10 @@
 package com.example.fifaand
 
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.HandlerThread
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +13,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.room.Database
 import com.example.fifaand.helper.CSVFileReader
+import com.example.fifaand.helper.Formatter
+import com.example.fifaand.helper.runOnIoThread
+import com.example.fifaand.tools.DBWorkerThread
+import com.example.fifaand.tools.Mapper
 import kotlinx.android.synthetic.main.fragment_list.view.*
 
 class ListFragment : Fragment(), View.OnClickListener {
@@ -57,6 +64,7 @@ class ListFragment : Fragment(), View.OnClickListener {
         val csv = CSVFileReader()
         //val path = Environment.getExternalStorageDirectory().path + data!!.data!!.path!!.replace("external_files/", "")
         var list: ArrayList<String>
+        val mapper= Mapper(Formatter())
 
         when (requestCode) {
             fileRequestCode -> {
@@ -64,11 +72,16 @@ class ListFragment : Fragment(), View.OnClickListener {
                 data.let { intent ->
                     list = csv.readFileByLine(context!!.contentResolver, intent!!.data!!)
                 }
+                val playerlist = list.map { mapper.map(it) }
+                val dB = (activity as MainActivity).mDb
+                val worker = (activity as MainActivity).dbWorker
+             //   worker.postTask(Runnable {dB!!.PlayerDao().deleteAllPlayers()})
+                val task = Runnable {  dB!!.PlayerDao().insertPlayer(*playerlist.toTypedArray()) }
+                worker.postTask(task)
                 Log.d("First: ", list[0])
                 bundle.putStringArrayList("playersList", list)
             }
             else -> Toast.makeText(context, "Stahp", Toast.LENGTH_SHORT).show()
-
         }
     }
 }

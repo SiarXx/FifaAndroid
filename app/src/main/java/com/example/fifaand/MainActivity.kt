@@ -7,8 +7,8 @@ import com.example.fifaand.tools.DBWorkerThread
 
 class MainActivity : AppCompatActivity() {
     var users = arrayListOf(User(1, "a","mleko@mleko.pl","a"))
-    private lateinit var dbWorker: DBWorkerThread
-    private var mDb: AppDatabase? = null
+    lateinit var dbWorker: DBWorkerThread
+    var mDb: AppDatabase? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

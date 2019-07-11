@@ -27,7 +27,7 @@ abstract class AppDatabase : RoomDatabase() {
         fun getInstance(context: Context): AppDatabase?{
             if(instance == null){
                 synchronized(AppDatabase::class){
-                    instance = Room.databaseBuilder(context.applicationContext,AppDatabase::class.java,"appDataBase.db").build()
+                    instance = Room.databaseBuilder(context.applicationContext,AppDatabase::class.java,"appDataBase.db").allowMainThreadQueries().build()
                 }
             }
             return instance

@@ -11,7 +11,7 @@ interface PlayerDao{
     @Query("SELECT * from Player")
     fun getAllPlayers(): List<Player>
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertPlayer(player: Player)
+    fun insertPlayer(vararg players: Player)
     @Query("DELETE from Player")
     fun deleteAllPlayers()
 }
