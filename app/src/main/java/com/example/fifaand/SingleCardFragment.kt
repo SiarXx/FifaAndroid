@@ -6,9 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.fifaand.Models.Footballer
-import com.example.fifaand.helper.Formatter
-import com.example.fifaand.tools.Mapper
+import com.example.fifaand.Models.Player
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_single_card.view.*
 
@@ -19,7 +17,7 @@ class SingleCardFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val player = arguments!!.getSerializable("Player")!! as Footballer
+        val player = arguments!!.getSerializable("Player")!! as Player
         val view = inflater.inflate(R.layout.fragment_single_card, container, false)
         view.Name.text = player.name
         view.Position.text = player.position

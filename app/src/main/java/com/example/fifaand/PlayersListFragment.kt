@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.fifaand.Models.Footballer
+import com.example.fifaand.Models.Player
 import com.example.fifaand.adapters.RecyclerViewAdapter
 import com.example.fifaand.helper.Formatter
 import com.example.fifaand.tools.Mapper
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_players__list_.view.*
 class PlayersListFragment : Fragment(), RecyclerViewAdapter.ListOnClickListener {
 
     private val bundle = Bundle()
-    private var  playerList= ArrayList<Footballer>()
+    private var  playerList= ArrayList<Player>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

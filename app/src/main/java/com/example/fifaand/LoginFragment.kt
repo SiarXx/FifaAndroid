@@ -12,6 +12,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.navigation.Navigation
 import com.example.fifaand.Models.User
+import com.example.fifaand.tools.DBWorkerThread
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_login.view.*
 import java.nio.file.attribute.UserPrincipalLookupService
@@ -26,11 +27,15 @@ class LoginFragment : Fragment(), View.OnClickListener {
         users = (activity as MainActivity).users
     }
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_login, container, false)
+
+
 
         view.loginBtn.setOnClickListener(this)
         view.registerBtn.setOnClickListener(this)

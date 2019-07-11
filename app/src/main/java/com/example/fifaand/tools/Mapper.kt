@@ -1,16 +1,16 @@
 package com.example.fifaand.tools
 
 import android.util.Log
-import com.example.fifaand.Models.Footballer
+import com.example.fifaand.Models.Player
 import com.example.fifaand.helper.Formatter
 
 class Mapper(private val formatter: Formatter) {
 
-    fun map(line: String): Footballer {
+    fun map(line: String): Player {
     val splited = line.split(";")
     try {
         return (
-                Footballer(
+                Player(
                     splited[1].toInt(),
                     splited[2],
                     splited[3].toIntOrNull(),
@@ -33,7 +33,7 @@ class Mapper(private val formatter: Formatter) {
                     splited[20].toBoolean(),
                     splited[21],
                     splited[22].toInt(),
-                    formatter.parseDate(splited[23]),
+                    formatter.parseDate(splited[23])?.time,
                     splited[24],
                     splited[25],
                     splited[26],
@@ -42,7 +42,7 @@ class Mapper(private val formatter: Formatter) {
                 )
     } catch (e: Exception) {
         Log.d("Player","Line does not match the format")
-        return Footballer()
+        return Player()
     }
 
 }

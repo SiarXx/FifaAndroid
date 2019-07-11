@@ -6,13 +6,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.fifaand.Models.Footballer
+import com.example.fifaand.Models.Player
 import com.example.fifaand.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.single_player_list.view.*
 
 class RecyclerViewAdapter(
-    private val players: ArrayList<Footballer>,
+    private val players: ArrayList<Player>,
     private val listOnClickListener: ListOnClickListener
 ) :
     RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>() {
