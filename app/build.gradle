@@ -24,7 +24,9 @@ android {
         }
     }
 }
-
+repositories {
+    jcenter()
+}
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -59,4 +61,5 @@ dependencies {
     testImplementation "androidx.room:room-testing:$room_version"
     implementation "com.amitshekhar.android:debug-db:1.0.6"
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
+    implementation 'org.koin:koin-core:2.0.1'
 }
