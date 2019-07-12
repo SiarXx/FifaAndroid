@@ -15,11 +15,14 @@ import com.example.fifaand.helper.CSVFileReader
 import com.example.fifaand.helper.Formatter
 import com.example.fifaand.tools.Mapper
 import com.example.fifaand.tools.PlayerToEntityMapper
+import com.example.fifaand.viewmodels.PlayerViewModel
 import kotlinx.android.synthetic.main.fragment_list.view.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class ListFragment : Fragment(), View.OnClickListener {
     private lateinit var dialog: AlertDialog
     private val fileRequestCode = 2137
+    val viewModel:PlayerViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,10 +68,12 @@ class ListFragment : Fragment(), View.OnClickListener {
                     list = csv.readFileByLine(context!!.contentResolver, intent!!.data!!)
                 }
                 val entitylist = reMapPlayers(list)
-                val dB = (activity as MainActivity).mDb
+                viewModel.putAllPlayers(entitylist)
+
+                /*val dB = (activity as MainActivity).mDb
                 val worker = (activity as MainActivity).dbWorker
                 val task = Runnable { dB!!.PlayerDao().insertPlayer(*entitylist.toTypedArray()) }
-                worker.postTask(task)
+                worker.postTask(task)*/
             }
             else -> Toast.makeText(context, "Stahp", Toast.LENGTH_SHORT).show()
         }

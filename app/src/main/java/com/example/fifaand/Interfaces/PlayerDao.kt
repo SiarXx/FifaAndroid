@@ -1,5 +1,6 @@
 package com.example.fifaand.Interfaces
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -10,7 +11,7 @@ import com.example.fifaand.entities.PlayerEntity
 @Dao
 interface PlayerDao{
     @Query("SELECT * from PlayerEntity")
-    fun getAllPlayers(): List<PlayerEntity>
+    fun getAllPlayers(): LiveData<List<PlayerEntity>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertPlayer(vararg players: PlayerEntity)
@@ -19,5 +20,5 @@ interface PlayerDao{
     fun deleteAllPlayers()
 
     @Query("SELECT * from PlayerEntity WHERE id == :id")
-    fun getPlayerPosition(id: Int): List<PlayerEntity>
+    fun getPlayerPosition(id: Int): LiveData<List<PlayerEntity>>
 }

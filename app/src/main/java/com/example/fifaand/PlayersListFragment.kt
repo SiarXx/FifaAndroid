@@ -8,28 +8,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.fifaand.Models.Player
 import com.example.fifaand.adapters.RecyclerViewAdapter
 import com.example.fifaand.entities.PlayerEntity
-import com.example.fifaand.helper.Formatter
-import com.example.fifaand.helper.runOnIoThread
 import com.example.fifaand.tools.DBWorkerThread
-import com.example.fifaand.tools.Mapper
-import kotlinx.android.synthetic.main.fragment_players__list_.*
+import com.example.fifaand.viewmodels.PlayerViewModel
 import kotlinx.android.synthetic.main.fragment_players__list_.view.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class PlayersListFragment : Fragment(), RecyclerViewAdapter.ListOnClickListener {
 
     private val bundle = Bundle()
     private var  playerList= ArrayList<PlayerEntity>()
-    private lateinit var  dB : AppDatabase
-    private val uiHandler = Handler()
-    private lateinit var worker : DBWorkerThread
-
+    /*private lateinit var  dB : AppDatabase
+    private lateinit var worker : DBWorkerThread*/
+    val viewModel: PlayerViewModel by viewModel()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,14 +35,18 @@ class PlayersListFragment : Fragment(), RecyclerViewAdapter.ListOnClickListener 
         val playerAdapter = RecyclerViewAdapter(playerList, this)
         playersRecyclerView.adapter = playerAdapter
         playersRecyclerView.layoutManager = LinearLayoutManager(context)
-        dB = (activity as MainActivity).mDb!!
-        worker = (activity as MainActivity).dbWorker
-        worker.postTask(  Runnable{playerList.addAll(ArrayList(dB.PlayerDao().getAllPlayers()))
+        /*dB = (activity as MainActivity).mDb!!
+        worker = (activity as MainActivity).dbWorker*/
+        viewModel.getAllPlayers().observe(this, Observer {
+            playerList.addAll(it)
+            playerAdapter.notifyDataSetChanged()
+        })
+       /* worker.postTask(  Runnable{playerList.addAll(ArrayList(dB.PlayerDao().getAllPlayers()))
             activity!!.runOnUiThread {
                 playerAdapter.notifyDataSetChanged()
             }
         }
-        )
+        )*/
         return view
     }
     override fun onClickNav(position: Int) {
