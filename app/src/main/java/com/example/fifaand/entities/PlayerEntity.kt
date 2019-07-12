@@ -3,6 +3,7 @@ package com.example.fifaand.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity
 data class PlayerEntity(
@@ -13,7 +14,6 @@ data class PlayerEntity(
     @ColumnInfo(name = "nationality") var nationality: String? = null,
     @ColumnInfo(name = "flag") var flag: String? = null,
     @ColumnInfo(name = "overall") var overall: Int? = null,
-    @ColumnInfo(name = "potential") var potential: Int? = null,
     @ColumnInfo(name = "clubLogo") var clubLogo: String? = null,
     @ColumnInfo(name = "preferredFoot") var preferredFoot: String? = null,
     @ColumnInfo(name = "weakFoot") var weakFoot: Int? = null,
@@ -22,4 +22,4 @@ data class PlayerEntity(
     @ColumnInfo(name = "jerseyNumber") var jerseyNumber: Int? = null,
     @ColumnInfo(name = "height") var height: String? = null,
     @ColumnInfo(name = "weight") var weight: String? = null
-    )
+    ): Serializable

@@ -10,11 +10,12 @@ import com.example.fifaand.Interfaces.PlayerDao
 import com.example.fifaand.Interfaces.UserDao
 import com.example.fifaand.Models.Player
 import com.example.fifaand.Models.User
+import com.example.fifaand.entities.PlayerEntity
 import com.example.fifaand.helper.Converters
 
 @Database(
     entities = [
-        Player::class,
+        PlayerEntity::class,
         User::class
     ], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)

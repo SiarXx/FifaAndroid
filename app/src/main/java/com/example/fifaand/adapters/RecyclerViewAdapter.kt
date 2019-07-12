@@ -8,11 +8,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fifaand.Models.Player
 import com.example.fifaand.R
+import com.example.fifaand.entities.PlayerEntity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.single_player_list.view.*
 
 class RecyclerViewAdapter(
-    private val players: ArrayList<Player>,
+    private val players: ArrayList<PlayerEntity>,
     private val listOnClickListener: ListOnClickListener
 ) :
     RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>() {
@@ -28,7 +29,6 @@ class RecyclerViewAdapter(
         val playerAge: TextView = container.Age
         val playerNationality: TextView = container.Nationality
         val playerPhoto: ImageView = container.photo
-
         init {
             container.setOnClickListener {
                 listOnClickListener.onClickNav(adapterPosition)
